@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://android.com"
+    xmlns:app="http://android.com"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Live Camera Viewfinder -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:scaleType="fillCenter" />
+
+    <!-- Rule of Thirds Grid Overlay -->
+    <LinearLayout
+        android:id="@+id/gridOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:weightSum="3">
+        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:background="@android:color/transparent" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#55FFFFFF" />
+        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:background="@android:color/transparent" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#55FFFFFF" />
+        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:background="@android:color/transparent" />
+    </LinearLayout>
+
+    <!-- Top Pro Controls Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#66000000"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/btnFlash"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="⚡ OFF"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnAiBoost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="✨ AI ULTRA: ON"
+            android:textColor="#FFD700"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnGrid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="⊞ GRID"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnTimer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="⏱ 0s"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Exposure & Pro EV Slider (Right Side) -->
+    <LinearLayout
+        android:id="@+id/evContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:background="#66000000"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/lutScroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="☀️ EV"
+            android:textColor="#FFD700"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <SeekBar
+            android:id="@+id/evSeekBar"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="45dp"
+            android:max="100"
+            android:progress="50"
+            android:rotation="270" />
+    </LinearLayout>
+
+    <!-- Countdown Timer Text -->
+    <TextView
+        android:id="@+id/tvCountdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="72sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Zoom Control Slider (Works for both Front & Back Camera) -->
+    <LinearLayout
+        android:id="@+id/zoomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="#66000000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/lutScroll">
+
+        <TextView
+            android:id="@+id/tvZoomLevel"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:text="1.0x"
+            android:textColor="#FFD700"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <SeekBar
+            android:id="@+id/zoomSeekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="100"
+            android:progress="0" />
+    </LinearLayout>
+
+    <!-- Cinematic 3D LUTs Selector Bar -->
+    <HorizontalScrollView
+        android:id="@+id/lutScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#88000000"
+        android:paddingVertical="8dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/modeScroll">
+
+        <LinearLayout
+            android:id="@+id/lutContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp" />
+    </HorizontalScrollView>
+
+    <!-- Camera Modes Bar (NIGHT, BOKEH, PHOTO, VIDEO, HDR, PRO) -->
+    <HorizontalScrollView
+        android:id="@+id/modeScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#AA000000"
+        android:paddingVertical="8dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/bottomControls">
+
+        <LinearLayout
+            android:id="@+id/modeContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp" />
+    </HorizontalScrollView>
+
+    <!-- Bottom Shutter, Gallery & Camera Flip Controls -->
+    <LinearLayout
+        android:id="@+id/bottomControls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CC000000"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="18dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btnGallery"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:backgroundTint="#333333"
+            android:text="🖼️"
+            android:textSize="22sp" />
+
+        <Space
+            android:layout_width="36dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnCapture"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="●"
+            android:textColor="#000000"
+            android:textSize="32sp" />
+
+        <Space
+            android:layout_width="36dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnSwitchCamera"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:backgroundTint="#333333"
+            android:text="🔄"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <!-- Instant AI Processing Indicator -->
+    <TextView
+        android:id="@+id/tvProcessing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#CC000000"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="⚡ AI Enhancing Ultra HD..."
+        android:textColor="#FFD700"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/zoomLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+      
